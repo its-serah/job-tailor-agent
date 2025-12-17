@@ -41,6 +41,8 @@ class Orchestrator:
         return ids
 
     def search_memory(self, query: str, top_k: int) -> List[dict]:
+        if not query.strip():
+            raise HTTPException(status_code=400, detail="Query must not be empty")
         return self.memory.search(query, top_k=top_k)
 
     async def process(
