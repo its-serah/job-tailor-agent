@@ -3,11 +3,20 @@ from __future__ import annotations
 from typing import List
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from .models.schemas import MemoryIngestRequest, ProcessRequest, ProcessResponse, SearchRequest, SearchResult
 from .orchestrator import Orchestrator
 
 app = FastAPI(title="Job Application Multi-Agent Orchestrator", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 orchestrator = Orchestrator()
 
 
