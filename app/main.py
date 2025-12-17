@@ -5,8 +5,11 @@ from typing import List
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from .logging_config import setup_logging
 from .models.schemas import MemoryIngestRequest, ProcessRequest, ProcessResponse, SearchRequest, SearchResult
 from .orchestrator import Orchestrator
+
+setup_logging()
 
 app = FastAPI(title="Job Application Multi-Agent Orchestrator", version="0.1.0")
 
