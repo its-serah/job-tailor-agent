@@ -11,12 +11,26 @@ A lightweight FastAPI controller that orchestrates parsing, planning, retrieval,
 - Generation agent (`agents/generation.py`) drafts a packet: cover letter snippet, tailored bullets, and talking points.
 - Orchestrator (`orchestrator.py`) wires everything together.
 
-## Quickstart
+## Quickstart (local dev)
 ```bash
-pip install -r job_application_agent/requirements.txt
-uvicorn job_application_agent.app.main:app --reload
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload
 ```
+
 FastAPI docs: http://127.0.0.1:8000/docs
+
+## Running with Docker
+Build and run the container:
+```bash
+docker build -t job-tailor-agent .
+docker run -p 8000:8000 --env-file .env job-tailor-agent
+```
+
+The API will be available at `http://127.0.0.1:8000`.
 
 ## Example usage
 1) Load profile memory (skills/projects/publications/CV bullets):
@@ -53,3 +67,10 @@ curl -X POST http://127.0.0.1:8000/memory/search \
 - LLM calls run offline by default (see `llm.py`). Set `LLM_PROVIDER` and `LLM_API_KEY` env vars and plug your client code inside `LLMClient.generate` to hit Claude/Gemini/Codex/etc.
 - The parsing agent only acts on links you manually provide; no crawling or mass automation is included.
 - Memory items persist in-process; restart the server to clear, or extend `VectorMemory` with persistence as needed.
+
+## Environment variables
+- `LLM_PROVIDER` – optional, name of your LLM provider.
+- `LLM_API_KEY` – optional, key for your LLM provider.
+- `LLM_BASE_URL` – optional, override base URL for self-hosted / custom endpoints.
+- `MAX_REQUIREMENTS` – max number of requirements to extract from a job post (default: 30).
+- `RETRIEVAL_TOP_K` – default number of memory items to retrieve per requirement (default: 3).
