@@ -32,6 +32,16 @@ docker run -p 8000:8000 --env-file .env job-tailor-agent
 
 The API will be available at `http://127.0.0.1:8000`.
 
+## Development workflow
+- Run the app locally:
+  ```bash
+  make run
+  ```
+- Run the test suite:
+  ```bash
+  make test
+  ```
+
 ## Example usage
 1) Load profile memory (skills/projects/publications/CV bullets):
 ```bash
