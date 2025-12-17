@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "label": "skill",
+      "text": "Built multi-agent job tailoring workflow with FastAPI orchestrator and vector memory; reduced drafting time by 80%",
+      "metadata": {
+        "area": "agentic workflows"
+      }
+    },
+    {
+      "label": "project",
+      "text": "Deployed LLM planner and reasoning agents to map job requirements to CV bullets using embeddings; prototyped in Cursor with Claude/Gemini",
+      "metadata": {
+        "area": "planning + retrieval"
+      }
+    },
+    {
+      "label": "publication",
+      "text": "Authored a write-up on modular LLM pipelines using FAISS/Chroma-style memory and n8n clean-up flows",
+      "metadata": {
+        "area": "writing"
+      }
+    }
+  ]
+}
