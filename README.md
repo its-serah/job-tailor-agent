@@ -74,3 +74,4 @@ curl -X POST http://127.0.0.1:8000/memory/search \
 - `LLM_BASE_URL` – optional, override base URL for self-hosted / custom endpoints.
 - `MAX_REQUIREMENTS` – max number of requirements to extract from a job post (default: 30).
 - `RETRIEVAL_TOP_K` – default number of memory items to retrieve per requirement (default: 3).
+- `CORS_ALLOW_ORIGINS` – optional, JSON list of allowed origins for CORS (default: ["*"]).
