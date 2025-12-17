@@ -24,23 +24,31 @@ app.add_middleware(
 orchestrator = Orchestrator()
 
 
-@app.get("/health")
+@app.get("/health", tags=["system"])
 async def health() -> dict:
-    return {"status": "ok"}
+    return {"status": "ok", "service": "job-tailor-agent"}
 
 
-@app.post("/memory", response_model=List[str])
+@app.get("/version", tags=["system"])
+async def version() -> dict:
+    return {
+        "version": app.version,
+        "llm_configured": orchestrator.llm.is_configured,
+    }
+
+
+@app.post("/memory", response_model=List[str], tags=["memory"])
 async def ingest_memory(payload: MemoryIngestRequest) -> List[str]:
     return orchestrator.add_memory_items(payload.items)
 
 
-@app.post("/memory/search", response_model=List[SearchResult])
+@app.post("/memory/search", response_model=List[SearchResult], tags=["memory"])
 async def search_memory(payload: SearchRequest) -> List[SearchResult]:
     hits = orchestrator.search_memory(payload.query, payload.top_k)
     return [SearchResult(**hit) for hit in hits]
 
 
-@app.post("/process", response_model=ProcessResponse)
+@app.post("/process", response_model=ProcessResponse, tags=["process"])
 async def process_job(payload: ProcessRequest) -> ProcessResponse:
     return await orchestrator.process(
         job_url=payload.job_url,
